@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+ <style>
+     #parent{
+         /* background-color:rgb(157, 157, 175); */
+         font-size: 35px;
+         padding: 30px 20px;
+         
+         
+     }
+     .button{
+         background-color: orangered;
+         width: 91%;
+         margin: auto;
+         color: wheat;
+         font-size: 30px;
+     }
+     #movie{
+         width: 90%;
+         margin: auto;
+         height: 30px;
+         font-size: 40px;
+     }
+     label{
+         font-size: 50px;
+     }
+
+     body{
+         background-color: wheat;
+     }
+
+ </style>
+
+<body>
+
+    <div><h1 style="text-align: center; font-size: 50px;">Movie details app</h1></div>
+     <label for="movie">Movie name</label><br>
+    <input id="movie" type="text" placeholder="enter movie name" /> <br><br>
+    <button onclick="movie_details()" class="button">Search</button>
+
+    <div id="parent"></div>
+
+    <script>
+
+        async function movie_details(){
+
+            let movie=document.getElementById('movie').value
+
+            let response= await fetch(`http://www.omdbapi.com/?apikey=af3dcdf6&t=${movie}`);
+            // let poster=   await fetch(`http://img.omdbapi.com/?apikey=af3dcdf6&t=${movie}`);
+
+            let data= await response.json();
+            // let pic= await poster.json();
+  
+        let parent=document.getElementById('parent');
+        
+        
+
+        let child=document.createElement('p');
+        child.innerText=`Movie_name :-  ${data.Title}`;
+
+        let child1=document.createElement('p');
+        child1.innerText= "Release Year:- "+data.Year;
+
+        let child2=document.createElement('p');
+        child2.innerText=`Actors:-${data.Actors}`;
+
+        let child3=document.createElement('p');
+        child3.innerText=`Directors:- ${data.Director}`;
+
+        parent.append(child, child1, child2, child3);
+
+            console.log('details', data);
+            // console.log('array', arr);
+
+            // console.log(data.rating)
+            console.log("checking");
+
+        
+
+        }
+
+    </script>
+    
+</body>
+</html>
