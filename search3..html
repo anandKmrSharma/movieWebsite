@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #parent {
+        /* background-color:rgb(157, 157, 175); */
+        font-size: 20px;
+        padding: 10px;
+        color: #ffffff;
+
+        /* display: flex; */
+        /* justify-content: center; */
+    }
+
+    .button {
+        background-color: orangered;
+        width: 91%;
+        align-items: center;
+        color: wheat;
+        font-size: 30px;
+        width: 71.5%;
+        border-radius: 7px;
+        
+    }
+
+    #movie {
+        width: 60%;
+        margin-left: 15%;
+        height: 20px;
+        font-size: 30px;
+        text-align: center;
+        border-radius: 7px;
+    
+    }
+
+    label {
+        font-size: 20px;
+    }
+
+    body {
+        background-color: #1c2940;
+    }
+
+    .main{
+        align-items: center;
+        /* background-color: teal; */
+    }
+    .main > div{
+        align-items: center;
+        margin: auto;
+        padding-left: 15%;
+    }
+
+
+</style>
+
+<body>
+
+    <div class="main">
+        <div>
+            <h1 style="text-align: center; font-size: 50px; color: wheat; margin-top: 0px;width: 70%;">Movie details app</h1>
+        </div>
+        <input id="movie" type="text" placeholder="enter movie name" /><br><br>
+       <div> <button onclick="movie_details()" class="button">Search</button></div>
+
+        <div id="parent"></div>
+
+    </div>
+
+    <script>
+
+        async function movie_details() {
+
+            let movie = document.getElementById('movie').value
+
+            let response = await fetch(`http://www.omdbapi.com/?apikey=af3dcdf6&t=${movie}`);
+
+            let data = await response.json();
+
+
+            let parent = document.getElementById('parent');
+            let div1=document.createElement('div');
+            let div2=document.createElement('div');
+
+
+            let image = document.createElement('img');
+            image.src = data.Poster;
+
+            let child = document.createElement('p');
+            child.innerText = `Movie_name :-  ${data.Title}`;
+
+            let child1 = document.createElement('p');
+            child1.innerText = "Release Year:- " + data.Year;
+
+            let child2 = document.createElement('p');
+            child2.innerText = `Actors:-${data.Actors}`;
+
+            let child3 = document.createElement('p');
+            child3.innerText = `Directors:- ${data.Director}`;
+
+            let child4 = document.createElement('p');
+            child4.innerText = `Ratings:-:- ${data.imdbRating}`;
+
+
+
+            if (data.Title == undefined) {
+
+                let im = document.createElement('img');
+                im.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLFKGUn0KhgtY66KUjrCG0WQ23XLONtOSWfHcf9AbW3CDsLiLsulBiUR4YUb6o1U1H27o&usqp=CAU";
+
+                parent.appendChild(im);
+                // console.log("invalid")
+
+            } else {
+
+                if (data.imdbRating > 8.5) {
+                    let tag = document.createElement('p');
+                    tag.innerHTML = "Recommended";
+
+                    div1.appendChild(image);
+                    div2.append(tag, child, child1, child2, child3, child4);
+                    parent.append(div1, div2);
+
+                    // parent.append(tag, image, child, child1, child2, child3, child4);
+
+                } else {
+                    div1.appendChild(image);
+                    div2.append(child, child1, child2, child3, child4);
+                    parent.append(div1, div2);
+                }
+
+
+            }
+
+            console.log('details', data);
+
+
+
+            console.log("checking");
+        }
+
+    </script>
+
+</body>
+
+</html>
