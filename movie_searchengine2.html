@@ -26,7 +26,7 @@
         font-size: 30px;
         width: 71.5%;
         border-radius: 7px;
-        
+
     }
 
     #movie {
@@ -36,7 +36,7 @@
         font-size: 30px;
         text-align: center;
         border-radius: 7px;
-    
+
     }
 
     label {
@@ -47,30 +47,31 @@
         background-color: #1c2940;
     }
 
-    .main{
+    .main {
         align-items: center;
         /* background-color: teal; */
     }
-    .main > div{
+
+    .main>div {
         align-items: center;
         margin: auto;
         padding-left: 15%;
     }
-     
-    img{
+
+    img {
         height: 250px;
     }
-
 </style>
 
 <body>
 
     <div class="main">
         <div>
-            <h1 style="text-align: center; font-size: 50px; color: wheat; margin-top: 0px;width: 70%;">Movie details app</h1>
+            <h1 style="text-align: center; font-size: 50px; color: wheat; margin-top: 0px;width: 70%;">Movie details app
+            </h1>
         </div>
         <input id="movie" type="text" placeholder="enter movie name" /><br><br>
-       <div> <button onclick="movie_details()" class="button">Search</button></div>
+        <div> <button onclick="movie_details()" class="button">Search</button></div>
 
         <div id="parent"></div>
 
@@ -78,8 +79,12 @@
 
     <script>
 
+
+        let parent = document.getElementById('parent');
+
         async function movie_details() {
 
+            parent.innerText = null;
             let movie = document.getElementById('movie').value
 
             let response = await fetch(`http://www.omdbapi.com/?apikey=af3dcdf6&t=${movie}`);
@@ -87,9 +92,8 @@
             let data = await response.json();
 
 
-            let parent = document.getElementById('parent');
-            let div1=document.createElement('div');
-            let div2=document.createElement('div');
+            let div1 = document.createElement('div');
+            let div2 = document.createElement('div');
 
 
             let image = document.createElement('img');
