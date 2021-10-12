@@ -47,8 +47,11 @@
     <div id="parent"></div>
 
     <script>
+        let parent=document.getElementById('parent');
 
         async function movie_details(){
+
+            parent.innerText=null;
 
             let movie=document.getElementById('movie').value
 
@@ -58,7 +61,6 @@
             let data= await response.json();
             // let pic= await poster.json();
   
-        let parent=document.getElementById('parent');
         
         
 
